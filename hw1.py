@@ -72,21 +72,24 @@ def TLprocess(data,S):
 def StackData(X,S,data):
     if len(X) == 0:
         X = TFprocess(data,S)
-        return X
+        return fscaling(X)
     else:
         V = TFprocess(data,S)
-        X = np.dstack([X,V])
+        X = np.dstack([X,fscaling(V)])
         return X
 
 
 def TStackData(Xt,S,tdata):
-    Vt = tdata[tdata['2']==S]
-    Vt=Vt.drop(['1','2'],axis = 1)
+    Vt = tdata[tdata['測項']==S]
+    Vt=Vt.drop(['1','測項'],axis = 1)
     Vt = np.array(Vt,float)
+    TR = data[data["測項"]==S]
+    TR = TR.drop(['日期','測站','測項'],axis = 1)
+    TR = np.array(TR,float)
     if len(Xt) == 0:
-        return Vt
+        return Tfscaling(Vt,TR)
     else:
-        Xt = np.hstack([Xt,Vt])
+        Xt = np.hstack([Xt,Tfscaling(Vt,TR)])
         return Xt
 
 
@@ -151,9 +154,9 @@ print('Weight:',Weight)
 print("Root Mean Square Error:",RMSE(Weight,Bias,X,Y,TDataMonth,TDataLeng))
 
 
-tdata = pd.read_csv(Test_D,encoding = "big5",names = ['1','2','3','4','5','6','7','8','9','10','11'])
+tdata = pd.read_csv(Test_D,encoding = "big5",names = ['1','測項','3','4','5','6','7','8','9','10','11'])
 
-PM_25t = tdata[tdata['2']=="PM2.5"]
+PM_25t = tdata[tdata['測項']=="PM2.5"]
 index_temp = np.array(PM_25t)
 index = index_temp[:,0]
 
