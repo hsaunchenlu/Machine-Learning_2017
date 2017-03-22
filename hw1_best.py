@@ -15,7 +15,7 @@ Res_path = sys.argv[3]
 
 
 data = pd.read_csv(Train_D,encoding = "big5")
-variables = 18
+variables = 9
 
 
 
@@ -40,18 +40,18 @@ def Tfscaling(V,TR):
 
 
 def TFprocess(data,S):
-    V = data[data["測項"]==S]		#讀取所選資料
+    V = data[data["測項"]==S]
     V = V.drop(['日期','測站','測項'],axis = 1)
-    V = np.array(V,float)		
-    v = np.reshape(V,(12,480))		#將資料照月份分好
-    datarow = len(v)			#月份
-    datacol = len(v[0])			#資料筆數
-    DSV = np.zeros((datarow,datacol-9,9),float) 
-    for i in range(0,datarow):		#將輸入特徵每九小時一筆分好
+    V = np.array(V,float)
+    v = np.reshape(V,(12,480))
+    datarow = len(v)
+    datacol = len(v[0])
+    DSV = np.zeros((datarow,datacol-9,9),float)
+    for i in range(0,datarow):
         for j in range(0,datacol-9):
             for k in range(0,9):
                 DSV[i,j,k] = v[i,j+k]
-    return DSV		#回傳feature陣列
+    return DSV
 
 
 def TLprocess(data,S):
