@@ -86,18 +86,7 @@ plt.show()
 
 # find how many eigenfaces are enough
 for i in range(100):   
-    [lo_k,re_k] = pca(Data,i)
-    err = np.sqrt(np.abs(((Data.T-re_k.T))*((Data.T-re_k.T)).T))/256
-    err_mean = err.mean()
-    print("top",i+1,"eigenface:",err_mean)
-
-
-# In[322]:
-
-
-
-
-# In[ ]:
-
-
+    [lo_k,re_k] = pca(Data,i+1)
+    err = np.sqrt(np.abs(np.mean(((Data.T-re_k.T))*((Data.T-re_k.T)).T)))/255*100
+    print("top",i+1,"eigenface:",err,"%")
 
