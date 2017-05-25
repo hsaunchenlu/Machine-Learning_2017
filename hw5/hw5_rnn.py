@@ -177,7 +177,7 @@ print ('Create embedding matrix.')
 embedding_matrix = get_embedding_matrix(word_index,embedding_dict,num_words,embedding_dim)
 
 model2 = create_model(num_words,embedding_dim,embedding_matrix,max_article_length)
-model2.load_weights('best.hdf5')
+model2.load_weights('rnn.hdf5')
 Y_pred = model2.predict(test_sequences)
     
 thresh = 0.5
