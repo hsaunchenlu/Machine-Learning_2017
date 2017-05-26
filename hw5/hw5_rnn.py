@@ -19,9 +19,8 @@ from keras.layers.embeddings import Embedding
 from keras.optimizers import Adam
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 
-train_path = 'train_data.csv'
-test_path = 'test_data.csv'
-output_path = 'test.csv'
+test_path = sys.argv[1]
+output_path = sys.argv[2]
 
 #####################
 ###   parameter   ###
