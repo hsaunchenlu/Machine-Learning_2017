@@ -84,7 +84,7 @@ max_movieid  = 3952
 #Import data
 
 
-test = pd.read_csv(TESTING_CSV_DIR+'train.csv', usecols=['TestDataID', 'UserID', 'MovieID'])
+test = pd.read_csv(TESTING_CSV_DIR+'test.csv', usecols=['TestDataID', 'UserID', 'MovieID'])
 print (len(test), 'descriptions of', max_movieid, 'movies loaded.')
 
 

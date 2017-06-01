@@ -54,8 +54,6 @@ def DeepMF(n_U,n_M,F):
     U_embedding = Embedding(input_dim=max_userid, output_dim=F)(U_input)
     M_embedding = Embedding(input_dim=max_movieid, output_dim=F)(M_input)
     
-    #U_bias = Embedding(input_dim=max_userid, output_dim=1, name='user_bias', input_length=1)(U_input)
-    #M_bias = Embedding(input_dim=max_movieid, output_dim=1, name='movie_bias', input_length=1)(M_input)
 
     concatenation = concatenate(inputs=[U_embedding, M_embedding])
 
@@ -66,8 +64,6 @@ def DeepMF(n_U,n_M,F):
     predicted_preference = Dense(activation='linear',units=1, name='predicted_preference')(dropout)
     predicted_preference = Flatten()(predicted_preference)
     
-    #predicted_preference = add(inputs=[predicted_preference, M_bias, U_bias])
-    #predicted_preference = Flatten()(predicted_preference)
     
     model = Model(inputs=[U_input, M_input],outputs=predicted_preference)
     return model
@@ -83,7 +79,7 @@ max_movieid  = 3952
 #Import data
 
 
-test = pd.read_csv(TESTING_CSV_DIR+'train.csv', usecols=['TestDataID', 'UserID', 'MovieID'])
+test = pd.read_csv(TESTING_CSV_DIR+'test.csv', usecols=['TestDataID', 'UserID', 'MovieID'])
 print (len(test), 'descriptions of', max_movieid, 'movies loaded.')
 
 
