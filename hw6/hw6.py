@@ -13,6 +13,7 @@ from keras.layers import Input, Embedding, Flatten, Dense, Dropout
 from keras.layers.merge import add, dot, concatenate
 from keras.models import Model
 from keras.optimizers import Adam
+import h5py
 import sys
 
 def MF(n_U,n_M,F):    
