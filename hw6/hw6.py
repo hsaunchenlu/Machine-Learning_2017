@@ -3,11 +3,11 @@
 
 # In[ ]:
 
-import math
-import pandas as pd
+#import math
+#import pandas as pd
 from keras.callbacks import Callback, EarlyStopping, ModelCheckpoint
 import numpy as np
-from itertools import product
+# from itertools import product
 from keras import backend as K
 from keras.layers import Input, Embedding, Flatten, Dense, Dropout
 from keras.layers.merge import add, dot, concatenate
@@ -85,7 +85,16 @@ max_movieid  = 3952
 #Import data
 
 
-test = pd.read_csv(TESTING_CSV_DIR+'test.csv', usecols=['TestDataID', 'UserID', 'MovieID'])
+test = []
+with open(TESTING_CSV_DIR+'test.csv','r') as te:
+    for line in te:
+        line = line.rstrip('\n')
+        line = line.split(',')
+        test.append(line)
+    test = np.array(test)
+    test = np.delete(test,0,axis = 0)
+    test = np.array(test,dtype='int64')
+    
 print (len(test), 'descriptions of', max_movieid, 'movies loaded.')
 
 
@@ -95,9 +104,9 @@ trained_model = MF(max_userid, max_movieid, K_FACTORS)
 trained_model.load_weights(MODEL_WEIGHTS_FILE)
 
 
-prediction = trained_model.predict([test['UserID'].values,test['MovieID'].values])
+prediction = trained_model.predict([test[:,1],test[:,2]])
 
-ids = test['TestDataID'].values
+ids = test[:,0]
 
 with open(OUTPUT_PATH,'w') as sm:
     print('\"TestDataID\",\"Rating\"',file=sm)
